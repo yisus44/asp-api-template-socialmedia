@@ -10,8 +10,7 @@ An opinionated template to save time in common configuration cases of ASP.NET We
 - Identity configuration for a Web API (JSON based)
 - CQRS Pattern with MediatR
 - Request validation with Data Annotations
-- Generic repository and unit of work .
-- 
+- Generic repository and unit of work
 #### Working with the app
 ##### Migrations
 ###### Create a migration
