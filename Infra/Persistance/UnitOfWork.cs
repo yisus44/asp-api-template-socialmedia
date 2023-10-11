@@ -7,12 +7,26 @@ namespace Infra.Persistance
     public class UnitOfWork : IUnitOfWork
     {
         public IGenericRepository<Post>? _postRepository;
+        public IGenericRepository<Comment>? _commentRepository;
+
         private readonly DatabaseContext _databaseContext;
 
         public UnitOfWork (DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
         }
+        public IGenericRepository<Comment> CommentRepository
+        {
+            get
+            {
+                if (_commentRepository == null)
+                {
+                    _commentRepository = new GenericRepository<Comment>(_databaseContext);
+                }
+                return _commentRepository;
+            }
+        }
+        
         public IGenericRepository<Post> PostRepository
         {
             get

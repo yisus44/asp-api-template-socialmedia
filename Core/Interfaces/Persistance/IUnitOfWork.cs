@@ -10,6 +10,8 @@ namespace Core.Interfaces.Persistance
     public interface IUnitOfWork
     {
         public IGenericRepository<Post> PostRepository { get; }
+        public IGenericRepository<Comment> CommentRepository { get; }
+
         public void Save();
     }
 }

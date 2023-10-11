@@ -213,7 +213,7 @@ namespace Infra.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("PostId");
 
-                    b.HasOne("Core.Entities.User", "user")
+                    b.HasOne("Core.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -221,7 +221,7 @@ namespace Infra.Migrations
 
                     b.Navigation("Post");
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Core.Entities.Post", b =>
