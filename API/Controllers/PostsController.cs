@@ -11,9 +11,7 @@ using System.Security.Claims;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PostsController : ControllerBase
+    public class PostsController : ApiController
     {
         private readonly IMediator _mediator;
 
@@ -34,18 +32,15 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreatePostDto createPostDto)
         {
-            var stringUserId = User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault()?.Value;
-            if(int.TryParse(stringUserId,out int userId))
+            var userId = GetUserId();
+            if (userId is null) return Unauthorized();
+            await _mediator.Send(
+            new CreatePostCommand()
             {
-               await _mediator.Send(
-               new CreatePostCommand()
-               {
-                   createPostDto = createPostDto,
-                   UserId = userId
-               });
-                return Ok(new ResponseDto<bool>(true));
-            }
-            return Unauthorized();
+                createPostDto = createPostDto,
+                UserId = (int)userId
+            });
+            return Ok(new ResponseDto<bool>(true));
         }
 
         [Authorize]

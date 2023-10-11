@@ -8,9 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : ApiController
     {
         private readonly ITokenService _tokenService;
         private readonly UserManager<User> _userManager;
