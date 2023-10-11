@@ -6,6 +6,6 @@ namespace App.Queries
 {
     public class GetPostsQuery : IRequest<PaginatedResponse<List<PostDto>>>
     {
-        public PaginationDto<Post> Pagination { get; set;}
+        public PaginateProductsDto Pagination { get; set;}
     }
 }

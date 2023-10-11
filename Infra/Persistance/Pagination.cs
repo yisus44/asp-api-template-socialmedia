@@ -6,9 +6,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.DTO
+namespace Infra.Persistance
 {
-    public class PaginationDto<T> : IPagination<T>
+    public class Pagination<T> : IPagination<T>
     {
         public int Page { get; set; } = 1;
         public int PerPage { get ; set ; } = 10;
