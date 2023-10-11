@@ -8,6 +8,7 @@ namespace API.Controllers
     [ApiController]
     public abstract class ApiController : ControllerBase
     {
+        [ApiExplorerSettings(IgnoreApi = true)]
         public int? GetUserId()
         {
             var stringUserId = User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault()?.Value;
