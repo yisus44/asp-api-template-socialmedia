@@ -23,7 +23,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] PaginationDto<Post> paginationDto)
+        public async Task<IActionResult> Get([FromQuery] PaginateProductsDto paginationDto)
         {
             var posts = await _mediator.Send(new GetPostsQuery() { Pagination = paginationDto });
             return Ok(posts);
