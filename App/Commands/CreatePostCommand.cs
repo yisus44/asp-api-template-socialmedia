@@ -6,5 +6,6 @@ namespace App.Commands
     public class CreatePostCommand : IRequest
     {
        public CreatePostDto createPostDto;
+       public int UserId;
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using App.Commands;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Core.Entities;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -33,9 +34,18 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreatePostDto createPostDto)
         {
-            await _mediator.Send(
-                new CreatePostCommand() { createPostDto = createPostDto });
-            return Ok(new ResponseDto<bool>(true));
+            var stringUserId = User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault()?.Value;
+            if(int.TryParse(stringUserId,out int userId))
+            {
+               await _mediator.Send(
+               new CreatePostCommand()
+               {
+                   createPostDto = createPostDto,
+                   UserId = userId
+               });
+                return Ok(new ResponseDto<bool>(true));
+            }
+            return Unauthorized();
         }
 
         [Authorize]

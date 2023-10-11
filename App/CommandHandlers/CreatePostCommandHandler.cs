@@ -19,6 +19,7 @@ namespace App.CommandHandlers
             {
                 Description = request.createPostDto.Description,
                 Title = request.createPostDto.Title,
+                UserId=request.UserId
             };
             _unitOfWork.PostRepository.Insert(post);
             _unitOfWork.Save();
