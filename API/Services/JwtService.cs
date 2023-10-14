@@ -33,8 +33,8 @@ namespace API.Services
 
         private JwtSecurityToken CreateJwtToken(Claim[] claims, SigningCredentials credentials, DateTime expiration) =>
             new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
+                _configuration["SocialMediaApp:Settings:JWT:Issuer"],
+                _configuration["SocialMediaApp:Settings:JWT:Audience"],
                 claims,
                 expires: expiration,
                 signingCredentials: credentials
@@ -52,7 +52,7 @@ namespace API.Services
         private SigningCredentials CreateSigningCredentials() =>
             new SigningCredentials(
                 new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])
+                    Encoding.UTF8.GetBytes(_configuration["SocialMediaApp:Settings:JWT:Key"])
                 ),
                 SecurityAlgorithms.HmacSha256
             );

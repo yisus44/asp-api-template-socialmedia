@@ -1,5 +1,6 @@
 using API.Services;
 using App.Queries;
+using Azure.Identity;
 using Core.Entities;
 using Core.Interfaces.Persistance;
 using Core.Interfaces.Services;
@@ -11,16 +12,26 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddAzureAppConfiguration(options =>
+{
+    options.Connect(
+        builder.Configuration["ConnectionStrings:AppConfig"])
+            .ConfigureKeyVault(kv =>
+            {
+                kv.SetCredential(new DefaultAzureCredential());
+            });
+});
 
 // Add services to the container.
 builder.Services.AddDbContext<DatabaseContext>(options =>
   options.UseSqlServer(
-      builder.Configuration.GetConnectionString("DefaultConnection")));
+      builder.Configuration["SocialMediaApp:Settings:DbConnection"]));
 builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services
-    .AddIdentityCore<User>(options => {
+    .AddIdentityCore<User>(options =>
+    {
         options.SignIn.RequireConfirmedAccount = false;
         options.User.RequireUniqueEmail = true;
         options.Password.RequireDigit = false;
@@ -39,6 +50,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(_ => _.RegisterServicesFromAssemblies(
         typeof(GetPostQuery).Assembly
     ));
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -49,10 +61,10 @@ builder.Services
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["SocialMediaApp:Settings:JWT:Audience"],
+            ValidIssuer = builder.Configuration["SocialMediaApp:Settings:JWT:Issuer"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+                Encoding.UTF8.GetBytes(builder.Configuration["SocialMediaApp:Settings:JWT:Key"])
             )
         };
     });
