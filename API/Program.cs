@@ -22,7 +22,7 @@ builder.Configuration.AddAzureAppConfiguration(options =>
                 kv.SetCredential(new DefaultAzureCredential());
             });
 });
-
+Console.WriteLine(builder.Configuration["SocialMediaApp:Settings:DbConnection"]);
 // Add services to the container.
 builder.Services.AddDbContext<DatabaseContext>(options =>
   options.UseSqlServer(
