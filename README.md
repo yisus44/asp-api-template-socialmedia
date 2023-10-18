@@ -11,6 +11,8 @@ An opinionated template to save time in common configuration cases of ASP.NET We
 - CQRS Pattern with MediatR
 - Request validation with Data Annotations
 - Generic repository and unit of work
+- CI/CD Deployments with Github actions
+- Secrets managment with Azure key vault
 #### Working with the app
 ##### Migrations
 ###### Create a migration
@@ -31,8 +33,6 @@ I built this template mainly because Microsoft Documentation in my opinion is ce
 ### Next things
 - Unit and integration tests
 - Logging with serilog
-- CI/CD Deployments with Github actions
-- Secrets managment with Azure key vault
 - File managament with Azure Block Blobs
 - Redis Caching
 - Perfomance testing
