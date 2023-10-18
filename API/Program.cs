@@ -13,6 +13,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Console.WriteLine(builder.Configuration["ConnectionStrings:AppConfig"]);
+
+
 builder.Configuration.AddAzureAppConfiguration(options =>
 {
     options.Connect(
