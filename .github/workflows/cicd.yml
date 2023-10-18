@@ -2,7 +2,6 @@ name: Compile e implemente la aplicación de .NET Core en la aplicación web yis
 on:
   push:
     branches:
-    - yisus44/feature/cicd
     - main
 env:
   AZURE_WEBAPP_NAME: yisus44socialmediaapp
