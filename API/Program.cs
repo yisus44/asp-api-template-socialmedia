@@ -13,15 +13,15 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Configuration.AddAzureAppConfiguration(options =>
-//{
-//    options.Connect(
-//        builder.Configuration["ConnectionStrings:AppConfig"])
-//            .ConfigureKeyVault(kv =>
-//            {
-//                kv.SetCredential(new DefaultAzureCredential());
-//            });
-//});
+builder.Configuration.AddAzureAppConfiguration(options =>
+{
+    options.Connect(
+        builder.Configuration["ConnectionStrings:AppConfig"])
+            .ConfigureKeyVault(kv =>
+            {
+                kv.SetCredential(new DefaultAzureCredential());
+            });
+});
 
 // Add services to the container.
 builder.Services.AddDbContext<DatabaseContext>(options =>
