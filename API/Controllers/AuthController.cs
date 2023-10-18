@@ -35,6 +35,12 @@ namespace API.Controllers
             return Ok(new ResponseDto<string>(token) );
         }
 
+        [HttpGet("hello")]
+        public IActionResult GetHello()
+        {
+            return Ok("hello");
+        }
+
         [HttpPost("SignIn")]
         public async Task<IActionResult> SignIn([FromBody] SignInDto signInDto)
         {
